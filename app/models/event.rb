@@ -6,4 +6,6 @@ class Event < ApplicationRecord
 
   has_many :posts, dependent: :destroy
   has_many :likes, as: :likable
+
+
 end

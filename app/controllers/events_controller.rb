@@ -5,12 +5,12 @@ class EventsController < ApplicationController
 			render json: {:event => @events, response: 200, responsemsg: "success"}
 	end
 	def create
-		user = User.find_by(params[:user_id])
+		user = User.find(params[:user_id])
 		 if user.blank?
 			return render json: {response: 500,msg: "user not found"}
 		end
 
-		user_events =Event.create(event_params) 
+		user_events =user.events.build(event_params) 
 		if user_events.save
 			render json: {response: 500,msg: "Event Created", events: user_events}
 		else
