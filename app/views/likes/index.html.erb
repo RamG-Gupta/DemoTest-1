@@ -1,0 +1,19 @@
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Status</th>
+    <th>Likable_type</th>
+    <th>Likable_id</th>
+    <th>User_id</th>
+    <th colspan="5"></th>
+  </tr>
+  <% @likes.each do |like| %>
+    <tr>
+      <td><%= like.Id %></td>
+      <td><%= like.Status %></td>
+       <td><%= like.Likable_type %></td>
+        <td><%= like.Likable_id %></td>
+         <td><%= like.User.id %></td>
+         </tr>
+   <%end%>
+</table>

@@ -1,27 +1,53 @@
 class LikesController < ApplicationController
 	def index
-		@user = User.find(params[:user_id])
-		@likes=@user.likes.all 
-			render json: {:likes => @likes, response: 200, responsemsg: "success"}
-	end
-	def create
-		user = User.find(params[:user_id])
-		 if user.blank?
-			return render json: {response: 500,msg: "user not found"}
-		end
+	@likes = Like.all
+	#render json: {like: @like}
+end	
 
-		user_events =user.likes.build(like_params) 
-		if user_events.save
-			render json: {response: 500,msg: "Event Created", likes: user_events}
+def create
+
+@event = Event.find(params[:event_id])
+
+if @event.blank?
+			return render json: {response: 500,msg: "user not found"}
+end	
+
+@like = @event.likes.create(like_params)
+
+ if @like.save!
+			render json: {response: 200,msg: "liked", like: @like}
 		else
-			render json: {response: 500,msg: "Event Not Created"}
+			render json: {response: 500,msg: "Event Not liked"}
 		end
-	end
-	private 
+end
+
+def index_post
+
+@like = Like.all
+render json: {like: @like}
+end
+
+
+def create_post
+@post = Post.find(params[:post_id])
+
+if @post.blank?
+			return render json: {response: 500,msg: "post not found"}
+end	
+
+@like = @post.likes.create(like_params)
+
+ if @like.save!
+			render json: {response: 200,msg: "liked", like: @like}
+		else
+			render json: {response: 500,msg: "post not like"}
+		end
+end
+ private
 
     def like_params
-			params.require(:likes).permit(:status, :user_id)
-
+      params.require(:like).permit(:status,:user_id)
     end
+
 
 end

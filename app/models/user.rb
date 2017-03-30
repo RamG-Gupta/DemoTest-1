@@ -2,13 +2,12 @@ class User < ApplicationRecord
 	
     mount_uploader :image, ImageUploader
     has_secure_password
-    has_many :user_events, dependent: :destroy
-    has_many :events, through: :user_events
+     has_many :user_events, dependent: :destroy
+    has_many :events
     has_many :posts, dependent: :destroy
-    
 
 
-	validates_uniqueness_of :email
+	# validates_uniqueness_of :email
     
 
 def self.from_omniauth(auth)
